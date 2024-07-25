@@ -71,7 +71,7 @@ function SaveRTCores {
         $bytes = [System.BitConverter]::GetBytes($intValue)
         Set-ItemProperty -Path $keyPath -Name "ReservedCpuSets" -Value $bytes -Type Binary
     }
-    [System.Windows.Forms.MessageBox]::Show("Configuración actualizada correctamente", "Sucess", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+    [System.Windows.Forms.MessageBox]::Show("Updated settings", "Info", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 }
 
 
@@ -79,14 +79,15 @@ Console -Hide
 [System.Windows.Forms.Application]::EnableVisualStyles();
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Set-RTCores"
-$form.Size = New-Object System.Drawing.Size(250, 300)
+$form.ClientSize = New-Object System.Drawing.Size(170, 240)
 $form.MaximizeBox = $false
+$form.MinimizeBox = $false
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 
 $cpuListBox = New-Object System.Windows.Forms.CheckedListBox
-$cpuListBox.Location = New-Object System.Drawing.Point(17, 20)
-$cpuListBox.Size = New-Object System.Drawing.Size(200, 200)
+$cpuListBox.Location = New-Object System.Drawing.Point(10, 10)
+$cpuListBox.Size = New-Object System.Drawing.Size(150, 200)
 for ($i = 0; $i -lt [Environment]::ProcessorCount; $i++) {
     [void]$cpuListBox.Items.Add("CPU $i")
 }
@@ -94,7 +95,8 @@ $form.Controls.Add($cpuListBox)
 
 $btnSave = New-Object System.Windows.Forms.Button
 $btnSave.Text = "Save"
-$btnSave.Location = New-Object System.Drawing.Point(75, 230)
+$btnSave.Size = New-Object System.Drawing.Size(75, 20)
+$btnSave.Location = New-Object System.Drawing.Point(50, 215)
 $form.Controls.Add($btnSave)
 
 # cargar configuración actual
