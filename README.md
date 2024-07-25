@@ -6,7 +6,7 @@ reserve nucleos para asignar tareas en tiempo real
 
 https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/soft-real-time/soft-real-time-device#use-mdm-bridge-wmi-provider-to-configure-the-windowsiot-csp
 
-![image](https://github.com/LuSlower/SetRTCores/assets/148411728/0265ad30-f5bd-4da6-adc5-22118cf19744)
+![image](https://github.com/user-attachments/assets/cf617cec-b23b-4d36-ba33-21ebf16a7039)
 
 # REFERENCIAS
 [1](https://github.com/valleyofdoom/ReservedCpuSets)
