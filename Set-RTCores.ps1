@@ -84,19 +84,48 @@ $form.MaximizeBox = $false
 $form.MinimizeBox = $false
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
+$form.KeyPreview = $true
+$form.Add_KeyDown({
+    $bitmask = GetRTCores
+    for ($i = 0; $i -lt [Environment]::ProcessorCount; $i++) {
+        $cpuListBox.SetItemChecked($i, $bitmask[$i] -eq "1")
+    }
+})
+
+$form.Add_Paint({
+    param (
+        [object]$sender,
+        [System.Windows.Forms.PaintEventArgs]$e
+    )
+    $rect = New-Object System.Drawing.Rectangle(0, 0, $sender.Width, $sender.Height)
+    $brush = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
+        $rect,
+        [System.Drawing.Color]::FromArgb(44, 44, 44),   # Color negro
+        [System.Drawing.Color]::FromArgb(99, 99, 99),# Color gris oscuro
+        [System.Drawing.Drawing2D.LinearGradientMode]::Vertical
+    )
+    $e.Graphics.FillRectangle($brush, $rect)
+})
 
 $cpuListBox = New-Object System.Windows.Forms.CheckedListBox
 $cpuListBox.Location = New-Object System.Drawing.Point(10, 10)
 $cpuListBox.Size = New-Object System.Drawing.Size(150, 200)
+$cpuListBox.BackColor = [System.Drawing.Color]::FromArgb(44, 44, 44)
+$cpuListBox.ForeColor = [System.Drawing.Color]::White
+$cpuListBox.BorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
 for ($i = 0; $i -lt [Environment]::ProcessorCount; $i++) {
     [void]$cpuListBox.Items.Add("CPU $i")
 }
 $form.Controls.Add($cpuListBox)
 
 $btnSave = New-Object System.Windows.Forms.Button
-$btnSave.Text = "Save"
 $btnSave.Size = New-Object System.Drawing.Size(75, 20)
 $btnSave.Location = New-Object System.Drawing.Point(50, 215)
+$btnSave.Text = "Save"
+$btnSave.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$btnSave.BackColor = [System.Drawing.Color]::FromArgb(44, 44, 44)
+$btnSave.ForeColor = [System.Drawing.Color]::White
+$btnSave.FlatAppearance.BorderSize = 0
 $form.Controls.Add($btnSave)
 
 # cargar configuración actual
